@@ -1,14 +1,12 @@
-cmake_minimum_required(VERSION 3.7)
+cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
+
 project(correspondence_grouping)
-find_package( PCL REQUIRED )
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native")
-add_executable(correspondence_grouping correspondence_grouping.cpp)
 
-target_include_directories(${PROJECT_NAME} SYSTEM PUBLIC
-                          ${PCL_INCLUDE_DIRS}
-                          )
+find_package(PCL 1.5 REQUIRED)
 
-target_link_libraries(${PROJECT_NAME}
-                      ${PCL_LIBRARIES}
-                      )
-set(CMAKE_BUILD_TYPE Debug)
+include_directories(${PCL_INCLUDE_DIRS})
+link_directories(${PCL_LIBRARY_DIRS})
+add_definitions(${PCL_DEFINITIONS})
+
+add_executable (correspondence_grouping correspondence_grouping.cpp)
+target_link_libraries (correspondence_grouping ${PCL_LIBRARIES})
